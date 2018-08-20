@@ -9,6 +9,7 @@ import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/switchMap';
 
 @Component({
   selector: 'app-root',
@@ -51,7 +52,7 @@ export class AppComponent implements OnInit, OnDestroy {
     .filter(x => x > 9)
     .subscribe(x => console.log(x));
 
-    letters.mergeMap(x => 
+    letters.switchMap(x => 
         numbers
           .take(5)
           .map(i => i + x)
