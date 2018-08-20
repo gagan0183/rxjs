@@ -4,9 +4,11 @@ import { Subject } from 'rxjs/Subject';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { ReplaySubject } from 'rxjs/ReplaySubject'
 import 'rxjs/add/observable/interval';
+import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/mergeMap';
 
 @Component({
   selector: 'app-root',
@@ -41,12 +43,19 @@ export class AppComponent implements OnInit, OnDestroy {
     this.subject$.next(90);
 
     const numbers = Observable.interval(1000);
+    const letters = Observable.of('a','b','c','d','e');
 
     numbers
     .take(10)
     .map(x => x * 9)
     .filter(x => x > 9)
     .subscribe(x => console.log(x));
+
+    letters.mergeMap(x => 
+        numbers
+          .take(5)
+          .map(i => i + x)
+        ).subscribe(x => console.log(x));
   }
 
   ngOnDestroy() {
