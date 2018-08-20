@@ -5,6 +5,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { ReplaySubject } from 'rxjs/ReplaySubject'
 import 'rxjs/add/observable/interval';
 import 'rxjs/add/observable/of';
+import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/filter';
@@ -57,6 +58,8 @@ export class AppComponent implements OnInit, OnDestroy {
           .take(5)
           .map(i => i + x)
         ).subscribe(x => console.log(x));
+
+    Observable.fromEvent(document, 'click').subscribe(x => console.log(x));
   }
 
   ngOnDestroy() {
