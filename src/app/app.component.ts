@@ -5,6 +5,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { ReplaySubject } from 'rxjs/ReplaySubject'
 import 'rxjs/add/observable/interval';
 import 'rxjs/add/operator/take';
+import 'rxjs/add/operator/map';
 
 @Component({
   selector: 'app-root',
@@ -38,9 +39,12 @@ export class AppComponent implements OnInit, OnDestroy {
     this.subject$.subscribe(x => console.log('second subscribe ', x));
     this.subject$.next(90);
 
-    const numbers = Observable.interval(1000).take(10);
+    const numbers = Observable.interval(1000);
 
-    numbers.subscribe(x => console.log(x));
+    numbers
+    .take(10)
+    .map(x => x * 9)
+    .subscribe(x => console.log(x));
   }
 
   ngOnDestroy() {
