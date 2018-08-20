@@ -10,6 +10,7 @@ export class AppComponent implements OnInit, OnDestroy {
   title = 'app';
   
   observable$;
+  subject$;
 
   ngOnInit() {
     this.observable$ = Observable.create((observer) => {
@@ -23,6 +24,14 @@ export class AppComponent implements OnInit, OnDestroy {
       err => {},
       () => console.log('this is the end there')
     );
+
+    this.subject$ = new BehaviorSubject(200);
+    this.subject$.subscribe(x => console.log('first subscribe ', x));
+    this.subject$.next(1);
+    this.subject$.next(9);
+
+    this.subject$.subscribe(x => console.log('second subscribe ', x));
+    this.subject$.next(90);
   }
 
   ngOnDestroy() {
