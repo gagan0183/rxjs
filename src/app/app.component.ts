@@ -10,6 +10,7 @@ import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/switchMap';
 
 @Component({
@@ -22,6 +23,7 @@ export class AppComponent implements OnInit, OnDestroy {
   
   observable$;
   subject$;
+  searchSubject = new Subject();
 
   ngOnInit() {
     this.observable$ = Observable.create((observer) => {
@@ -60,9 +62,17 @@ export class AppComponent implements OnInit, OnDestroy {
         ).subscribe(x => console.log(x));
 
     Observable.fromEvent(document, 'click').subscribe(x => console.log(x));
+
+    this.searchSubject.debounceTime(200)
+    .subscribe(x => console.log(x));
   }
 
   ngOnDestroy() {
     this.observable$.unsubscribe();
+  }
+
+  input($event) {
+    console.log('search ', $event);
+    this.searchSubject.next($event);
   }
 }
