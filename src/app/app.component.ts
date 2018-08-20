@@ -6,6 +6,7 @@ import { ReplaySubject } from 'rxjs/ReplaySubject'
 import 'rxjs/add/observable/interval';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/filter';
 
 @Component({
   selector: 'app-root',
@@ -44,6 +45,7 @@ export class AppComponent implements OnInit, OnDestroy {
     numbers
     .take(10)
     .map(x => x * 9)
+    .filter(x => x > 9)
     .subscribe(x => console.log(x));
   }
 
