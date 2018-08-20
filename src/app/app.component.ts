@@ -1,5 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { ReplaySubject } from 'rxjs/ReplaySubject'
 
 @Component({
   selector: 'app-root',
@@ -25,7 +28,7 @@ export class AppComponent implements OnInit, OnDestroy {
       () => console.log('this is the end there')
     );
 
-    this.subject$ = new BehaviorSubject(200);
+    this.subject$ = new ReplaySubject();
     this.subject$.subscribe(x => console.log('first subscribe ', x));
     this.subject$.next(1);
     this.subject$.next(9);
